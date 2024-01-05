@@ -2,6 +2,7 @@
 #![allow(dead_code)]
 
 use crate::gpio::{Error, Level, Result, Trigger};
+use crate::time::Instant;
 use libc::{self, c_int, c_ulong, c_void, ENOENT};
 use std::ffi::CString;
 use std::fmt;
@@ -9,7 +10,6 @@ use std::fs::{File, OpenOptions};
 use std::io;
 use std::mem;
 use std::os::unix::io::AsRawFd;
-use std::time::Duration;
 
 #[cfg(target_env = "gnu")]
 type IoctlLong = libc::c_ulong;
@@ -377,7 +377,7 @@ impl EventData {
 #[derive(Debug, Copy, Clone)]
 pub struct Event {
     trigger: Trigger,
-    timestamp: Duration,
+    timestamp: Instant,
 }
 
 impl Event {
@@ -388,12 +388,17 @@ impl Event {
                 EVENT_TYPE_FALLING_EDGE => Trigger::FallingEdge,
                 _ => unreachable!(),
             },
-            timestamp: Duration::from_nanos(event_data.timestamp),
+            // The .timestamp always is going to be u64 so widening cast here is safe to do.
+            #[allow(clippy::cast_lossless)]
+            timestamp: Instant(event_data.timestamp as u128),
         }
     }
 
     pub fn trigger(&self) -> Trigger {
         self.trigger
+    }
+    pub fn timestamp(&self) -> Instant {
+        self.timestamp
     }
 
     pub fn level(&self) -> Level {

@@ -1,3 +1,4 @@
+use crate::time::Instant;
 use std::os::unix::io::AsRawFd;
 use std::sync::atomic::Ordering;
 use std::sync::Arc;
@@ -520,7 +521,7 @@ impl InputPin {
     /// [`Level`]: enum.Level.html
     pub fn set_async_interrupt<C>(&mut self, trigger: Trigger, callback: C) -> Result<()>
     where
-        C: FnMut(Level) + Send + 'static,
+        C: FnMut(Level, Instant) + Send + 'static,
     {
         self.clear_interrupt()?;
         self.clear_async_interrupt()?;
