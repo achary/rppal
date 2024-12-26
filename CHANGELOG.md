@@ -1,6 +1,17 @@
 # Changelog
 
-## 0.17.0 (TBD)
+## 0.18.0 (May 18, 2024)
+
+* **Gpio**: (Breaking change) Add support for mode `Null` for uninitialized (FUNCSEL 31 (NULL)) pins on Raspberry Pi 5 (contributed by @lukeburong).
+* **Gpio**: Fix `InputPin` mode not getting set correctly for uninitialized pins on Raspberry Pi 5 (contributed by @lukeburong).
+* **Pwm**: (Breaking change) Add `Error::UnknownModel`.
+* **Pwm**: Fix support for hardware PWM on Raspberry Pi 5, caused by incorrect PWM chip/channel.
+
+## 0.17.1 (January 21, 2024)
+
+* Fix `is_low` implementation for `embedded_hal::digital::InputPin` (contributed by @TeyKey1).
+
+## 0.17.0 (January 15, 2024)
 
 * (Breaking change) Update `embedded-hal` to v1.0.0 (contributed by @reitermarkus).
 

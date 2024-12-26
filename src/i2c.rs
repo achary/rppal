@@ -21,7 +21,7 @@
 //!
 //! The I2C bus connected to these pins is disabled by
 //! default. You can enable it through `sudo raspi-config`, or by manually
-//! adding `dtparam=i2c_arm=on` to `/boot/config.txt`. Remember to reboot
+//! adding `dtparam=i2c_arm=on` to `/boot/firmware/config.txt`. Remember to reboot
 //! the Raspberry Pi afterwards.
 //!
 //! * SDA: BCM GPIO 2 (physical pin 3)
@@ -29,28 +29,28 @@
 //!
 //! ### I2C3
 //!
-//! I2C3 can be enabled by adding `dtoverlay=i2c3` to `/boot/config.txt`.
+//! I2C3 can be enabled by adding `dtoverlay=i2c3` to `/boot/firmware/config.txt`.
 //!
 //! * SDA: BCM GPIO 4 (physical pin 7)
 //! * SCL: BCM GPIO 5 (physical pin 29)
 //!
 //! ### I2C4
 //!
-//! I2C4 can be enabled by adding `dtoverlay=i2c4` to `/boot/config.txt`.
+//! I2C4 can be enabled by adding `dtoverlay=i2c4` to `/boot/firmware/config.txt`.
 //!
 //! * SDA: BCM GPIO 8 (physical pin 24)
 //! * SCL: BCM GPIO 9 (physical pin 21)
 //!
 //! ### I2C5
 //!
-//! I2C5 can be enabled by adding `dtoverlay=i2c5` to `/boot/config.txt`.
+//! I2C5 can be enabled by adding `dtoverlay=i2c5` to `/boot/firmware/config.txt`.
 //!
 //! * SDA: BCM GPIO 12 (physical pin 32)
 //! * SCL: BCM GPIO 13 (physical pin 33)
 //!
 //! ### I2C6
 //!
-//! I2C6 can be enabled by adding `dtoverlay=i2c6` to `/boot/config.txt`.
+//! I2C6 can be enabled by adding `dtoverlay=i2c6` to `/boot/firmware/config.txt`.
 //!
 //! * SDA: BCM GPIO 22 (physical pin 15)
 //! * SCL: BCM GPIO 23 (physical pin 16)
@@ -75,7 +75,7 @@
 //! By default, the I2C bus clock speed is set to 100 kHz. Transferring
 //! 1 bit takes 1 clock cycle. You can change the
 //! transfer rate by adding `dtparam=i2c_arm_baudrate=X` to
-//! `/boot/config.txt`, where `X` should be replaced with the
+//! `/boot/firmware/config.txt`, where `X` should be replaced with the
 //! clock frequency in hertz (Hz). Remember to reboot
 //! the Raspberry Pi afterwards.
 //!
@@ -202,16 +202,11 @@ pub type Result<T> = result::Result<T, Error>;
 /// through its various protocols. More details can be found in the latest SMBus
 /// [specification].
 ///
-/// The `embedded-hal` [`blocking::i2c::Read`], [`blocking::i2c::Write`] and
-/// [`blocking::i2c::WriteRead`] trait implementations for `I2c` can be enabled
-/// by specifying the optional `hal`
-/// feature in the dependency declaration for the `rppal` crate.
+/// The `embedded-hal` trait implementations for `I2c` can be enabled by specifying
+/// the optional `hal` feature in the dependency declaration for the `rppal` crate.
 ///
 /// [here]: index.html#i2c-buses
 /// [specification]: http://smbus.org/specs/SMBus_3_1_20180319.pdf
-/// [`blocking::i2c::Read`]: ../../embedded_hal/blocking/i2c/trait.Read.html
-/// [`blocking::i2c::Write`]: ../../embedded_hal/blocking/i2c/trait.Write.html
-/// [`blocking::i2c::WriteRead`]: ../../embedded_hal/blocking/i2c/trait.WriteRead.html
 #[derive(Debug)]
 pub struct I2c {
     bus: u8,
