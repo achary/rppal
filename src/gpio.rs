@@ -1,3 +1,4 @@
+#![allow(static_mut_refs)]
 //! Interface for the GPIO peripheral.
 //!
 //! To ensure fast performance, RPPAL controls the GPIO peripheral by directly
